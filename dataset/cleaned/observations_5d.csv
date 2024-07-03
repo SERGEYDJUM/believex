@@ -1,4 +1,4 @@
-id,heartrate,tp,vlf,lf,hf,lfnu,hfnu,lfhf,vlf%,lv%,hf%
+id,heartrate,tp,vlf,lf,hf,lfnu,hfnu,lfhf,vlf%,lf%,hf%
 0,90,1231,752,323,156,67.5,32.5,2.08,61.1,26.3,12.7
 1,,,,,,,,,,,
 2,,,,,,,,,,,
