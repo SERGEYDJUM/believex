@@ -5,7 +5,7 @@ mod url_queries;
 
 use anyhow::Ok;
 use appstate::AppState;
-use axum::{response::Redirect, routing::get, Router};
+use axum::{routing::get, Router};
 use tokio::net::TcpListener;
 use tower_http::{
     services::{ServeDir, ServeFile},
