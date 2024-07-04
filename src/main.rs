@@ -1,6 +1,5 @@
 mod appstate;
 mod handlers;
-mod ort_model;
 mod url_queries;
 
 use anyhow::Ok;
