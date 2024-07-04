@@ -18,3 +18,14 @@ impl BelievexModel {
         Ok(self.session.metadata()?.name()?)
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn it_works() {
+        let model = BelievexModel::load("models/sample_model.onnx").unwrap();
+        assert_eq!(model.infer().unwrap(), "tf2onnx");
+    }
+}

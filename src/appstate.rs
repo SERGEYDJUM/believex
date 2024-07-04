@@ -1,7 +1,6 @@
-use std::{path::Path, sync::Arc};
 use believex_backend::BelievexModel;
+use std::{path::Path, sync::Arc};
 use tokio::sync::Mutex;
-
 
 #[derive(Debug, Clone)]
 pub struct AppState {
