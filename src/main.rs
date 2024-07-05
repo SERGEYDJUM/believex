@@ -12,16 +12,18 @@ use tower_http::{
 };
 use tracing_subscriber::{fmt, layer::SubscriberExt, util::SubscriberInitExt, EnvFilter};
 
-const SOCKET: &str = "127.0.0.1:6969";
+const SOCKET: &str = "0.0.0.0:7331";
+
+const DEFAULT_LOGLEVEL: &str = if cfg!(debug_assertions) {
+    "debug,tower_http=debug,ort=info"
+} else {
+    "info"
+};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     tracing_subscriber::registry()
-        .with(EnvFilter::from(if cfg!(debug_assertions) {
-            "debug,tower_http=debug,ort=info"
-        } else {
-            "info,tower_http=warn"
-        }))
+        .with(EnvFilter::try_from_default_env().unwrap_or(DEFAULT_LOGLEVEL.into()))
         .with(fmt::layer())
         .init();
 
