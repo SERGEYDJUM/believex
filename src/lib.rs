@@ -49,7 +49,7 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let model = BelievexModel::load("models/sample_model.onnx").unwrap();
+        let model = BelievexModel::load("models/knn_women.onnx").unwrap();
         model.session.metadata().unwrap();
     }
 }
