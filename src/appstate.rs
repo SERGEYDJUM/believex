@@ -1,4 +1,4 @@
-use believex_backend::BelievexModel;
+use believex_backend::{BelievexModel, Error};
 use std::{path::Path, sync::Arc};
 use tokio::sync::Mutex;
 
@@ -8,7 +8,7 @@ pub struct AppState {
 }
 
 impl AppState {
-    pub fn new<P: AsRef<Path>>(model_path: P) -> anyhow::Result<Self> {
+    pub fn new<P: AsRef<Path>>(model_path: P) -> Result<Self, Error> {
         Ok(Self {
             ort_model: Arc::new(Mutex::new(BelievexModel::load(model_path)?)),
         })
