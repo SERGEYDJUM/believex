@@ -1,7 +1,7 @@
 use ndarray::Array2;
 use ort::{Session, SessionInputValue};
-use thiserror::Error;
 use std::{borrow::Cow, path::Path};
+use thiserror::Error;
 
 pub type OrtInputTensor<'a> = Vec<(Cow<'a, str>, SessionInputValue<'a>)>;
 
@@ -30,11 +30,16 @@ impl BelievexModel {
         Ok(ort::inputs!["float_input" => input_tensor.view()]?)
     }
 
-    pub fn infer(&self) -> Result<String, Error> {
+    pub fn infer(&self) -> Result<f32, Error> {
         // dbg!(&self.session.inputs);
         let model_output = self.session.run(Self::encode()?)?;
-        let output = model_output["variable"].try_extract_tensor::<f32>().into_iter().last().unwrap();
-        Ok(output.to_string())
+        let output: Vec<f32> = model_output["variable"]
+            .try_extract_tensor::<f32>()?
+            .iter()
+            .copied()
+            .collect();
+
+        Ok(*output.first().unwrap())
     }
 }
 

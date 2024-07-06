@@ -20,7 +20,7 @@ pub async fn infer(
     let lock = state.ort_model.lock().await;
 
     match lock.infer() {
-        Ok(res) => res,
+        Ok(res) => res.to_string(),
         Err(err) => err.to_string(),
     }
 }
