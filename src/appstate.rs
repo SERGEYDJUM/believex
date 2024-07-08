@@ -1,16 +1,15 @@
-use believex_backend::{BelievexModel, Error};
-use std::{path::Path, sync::Arc};
-use tokio::sync::Mutex;
+use believex_backend::{AsyncBelievexModelManager, Error};
+use std::path::Path;
 
 #[derive(Debug, Clone)]
 pub struct AppState {
-    pub ort_model: Arc<Mutex<BelievexModel>>,
+    pub model_manager: AsyncBelievexModelManager,
 }
 
 impl AppState {
-    pub fn new<P: AsRef<Path>>(model_path: P) -> Result<Self, Error> {
+    pub fn new<P: AsRef<Path>>(boys: P, girls: P, women: P, men: P) -> Result<Self, Error> {
         Ok(Self {
-            ort_model: Arc::new(Mutex::new(BelievexModel::load(model_path)?)),
+            model_manager: AsyncBelievexModelManager::load_models(boys, girls, women, men)?,
         })
     }
 }

@@ -1,6 +1,6 @@
 mod appstate;
 mod handlers;
-mod url_queries;
+mod serde_structs;
 
 use anyhow::Ok;
 use appstate::AppState;
@@ -29,7 +29,12 @@ async fn main() -> anyhow::Result<()> {
 
     tracing::info!("Will listen on {0}", SOCKET);
 
-    let state = AppState::new("models/knn_women.onnx")?;
+    let state = AppState::new(
+        "models/knn_boys.onnx",
+        "models/knn_girls.onnx",
+        "models/knn_women.onnx",
+        "models/knn_men.onnx",
+    )?;
 
     let static_files_srv = ServeDir::new("dist/").fallback(ServeFile::new("dist/404.html"));
 

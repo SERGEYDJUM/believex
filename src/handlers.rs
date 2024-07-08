@@ -3,24 +3,28 @@ use axum::{
     response::IntoResponse,
 };
 
-use crate::{appstate::AppState, url_queries::TestQuery};
+use crate::{
+    appstate::AppState,
+    serde_structs::{AgeGroup, InferenceQuery, Sex},
+};
 
 pub async fn test() -> impl IntoResponse {
     "sample response text"
 }
 
 pub async fn infer(
-    Query(query): Query<TestQuery>,
+    Query(query): Query<InferenceQuery>,
     State(state): State<AppState>,
 ) -> impl IntoResponse {
-    // Showcase the query mechanism
-    let query = query.testval;
-    tracing::debug!("got number {0}", query);
+    let is_child = matches!(query.age, AgeGroup::Child);
+    let is_male = matches!(query.sex, Sex::Male);
 
-    let lock = state.ort_model.lock().await;
-
-    match lock.infer() {
-        Ok(res) => res.to_string(),
+    match state
+        .model_manager
+        .infer(query.lf, query.hf, is_male, is_child)
+        .await
+    {
+        Ok(value) => value.to_string(),
         Err(err) => err.to_string(),
     }
 }
