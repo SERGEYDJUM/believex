@@ -41,6 +41,7 @@ async fn main() -> anyhow::Result<()> {
     let router = Router::new()
         .route("/test", get(handlers::test))
         .route("/infer", get(handlers::infer))
+        .route("/infer_htmx", get(handlers::infer_htmx))
         .nest_service("/", static_files_srv)
         .with_state(state);
 

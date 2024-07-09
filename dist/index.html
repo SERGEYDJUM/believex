@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <script src="https://unpkg.com/htmx.org@2.0.0"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Believix</title>
 </head>
+
 <body>
-    <p>Index Page</p>
+    <table id="restable">
+        <tr>
+            <th>Age</th>
+            <th>Sex</th>
+            <th>%LF</th>
+            <th>%HF</th>
+            <th>%LF_L</th>
+        </tr>
+        <tr id="restableform">
+            <form hx-boost="true" hx-target="#restableform" hx-swap="afterend" hx-get="/infer_htmx" id="inferform">
+                <td><input name="age" type="number" placeholder="Age" value="9"></td>
+                <td>
+                    <input type="radio" id="female_radio" name="sex" value="Female" checked="checked">
+                    <label for="female_radio"><span>Female</span></label>
+                    <input type="radio" id="male_radio" name="sex" value="Male">
+                    <label for="male_radio"><span>Male</span></label>
+                </td>
+                <td><input name="lf" type="number" placeholder="%LF" value="56"></td>
+                <td><input name="hf" type="number" placeholder="%HF" value="27"></td>
+                <td><input type="submit" value="Infer"></td>
+            </form>
+        </tr>
+    </table>
 </body>
+
 </html>
