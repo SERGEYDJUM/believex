@@ -1,10 +1,11 @@
 mod appstate;
 mod handlers;
-mod serde_structs;
+mod queries;
 
 use anyhow::Ok;
 use appstate::AppState;
 use axum::{routing::get, Router};
+use believex_backend::MMConfig;
 use tokio::net::TcpListener;
 use tower_http::{
     services::{ServeDir, ServeFile},
@@ -29,19 +30,24 @@ async fn main() -> anyhow::Result<()> {
 
     tracing::info!("Will listen on {0}", SOCKET);
 
-    let state = AppState::new(
-        "models/knn_boys.onnx",
-        "models/knn_girls.onnx",
-        "models/knn_women.onnx",
-        "models/knn_men.onnx",
-    )?;
+    let mm_config = MMConfig {
+        mlf2h: "models/knn_male_adults_lf_2h.onnx",
+        mlf5d: "models/knn_male_adults_lf_5d.onnx",
+        mhf2h: "models/knn_male_adults_hf_5d.onnx",
+        mhf5d: "models/knn_male_adults_hf_5d.onnx",
+        flf2h: "models/knn_female_adults_lf_2h.onnx",
+        flf5d: "models/knn_female_adults_lf_5d.onnx",
+        fhf2h: "models/knn_female_adults_hf_2h.onnx",
+        fhf5d: "models/knn_female_adults_hf_5d.onnx",
+    };
+
+    let state = AppState::new(mm_config)?;
 
     let static_files_srv = ServeDir::new("dist/").fallback(ServeFile::new("dist/404.html"));
 
     let router = Router::new()
-        .route("/test", get(handlers::test))
         .route("/infer", get(handlers::infer))
-        .route("/infer_htmx", get(handlers::infer_htmx))
+        .route("/infer_htmx", get(handlers::infer))
         .nest_service("/", static_files_srv)
         .with_state(state);
 

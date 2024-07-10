@@ -1,15 +1,16 @@
-use believex_backend::{AsyncBelievexModelManager, Error};
-use std::path::Path;
+use believex_backend::AsyncBelievexModelManager;
+pub use believex_backend::{Error, MMConfig};
+use std::sync::Arc;
 
 #[derive(Debug, Clone)]
 pub struct AppState {
-    pub model_manager: AsyncBelievexModelManager,
+    pub model_manager: Arc<AsyncBelievexModelManager>,
 }
 
 impl AppState {
-    pub fn new<P: AsRef<Path>>(boys: P, girls: P, women: P, men: P) -> Result<Self, Error> {
+    pub fn new(model_config: MMConfig<&str>) -> Result<Self, Error> {
         Ok(Self {
-            model_manager: AsyncBelievexModelManager::load_models(boys, girls, women, men)?,
+            model_manager: Arc::new(AsyncBelievexModelManager::load_models(model_config)?),
         })
     }
 }

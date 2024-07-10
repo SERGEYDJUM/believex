@@ -1,61 +1,51 @@
 use axum::{
     extract::{Query, State},
+    http::StatusCode,
     response::IntoResponse,
 };
 
 use crate::{
     appstate::AppState,
-    serde_structs::{InferenceQuery, Sex},
+    queries::{InferenceQuery, ObservationTime, Sex},
 };
-
-pub async fn test() -> impl IntoResponse {
-    "sample response text"
-}
 
 pub async fn infer(
     Query(query): Query<InferenceQuery>,
     State(state): State<AppState>,
 ) -> impl IntoResponse {
-    let is_child = query.age <= 12;
+    let is_late = matches!(query.otime, ObservationTime::After5d);
     let is_male = matches!(query.sex, Sex::Male);
 
-    match state
+    let (lf, hf) = match state
         .model_manager
-        .infer(query.lf, query.hf, is_male, is_child)
+        .infer(query.lf_b, query.hf_b, is_male, is_late)
         .await
     {
-        Ok(value) => value.to_string(),
-        Err(err) => err.to_string(),
-    }
-}
+        Ok(v) => v,
+        Err(err) => {
+            return Err((
+                StatusCode::INTERNAL_SERVER_ERROR,
+                format!("Inference failed with error: {0}", err),
+            ))
+        }
+    };
 
-pub async fn infer_htmx(
-    Query(query): Query<InferenceQuery>,
-    State(state): State<AppState>,
-) -> impl IntoResponse {
-    let is_child = query.age <= 12;
-    let is_male = matches!(query.sex, Sex::Male);
-
-    let res = state
-        .model_manager
-        .infer(query.lf, query.hf, is_male, is_child)
-        .await;
-
-    format!(
+    let new_row = format!(
         "<tr>
             <td>{0}</td>
             <td>{1}</td>
             <td>{2}</td>
             <td>{3}</td>
             <td>{4}</td>
+            <td>{5}</td>
         </tr>",
-        query.age,
-        if is_male { "Male" } else { "Female" },
-        query.lf,
-        query.hf,
-        match res {
-            Ok(v) => v.to_string(),
-            Err(_) => "ERR".to_string(),
-        }
-    )
+        if is_late { "5 days" } else { "2 hours" },
+        if is_male { "M" } else { "F" },
+        query.lf_b,
+        query.hf_b,
+        lf,
+        hf,
+    );
+
+    Ok(new_row)
 }

@@ -12,24 +12,30 @@
 <body>
     <table id="restable">
         <tr>
-            <th>Age</th>
+            <th>Time</th>
             <th>Sex</th>
+            <th>%LF Before</th>
+            <th>%HF Before</th>
             <th>%LF</th>
             <th>%HF</th>
-            <th>%LF_L</th>
         </tr>
         <tr id="restableform">
-            <form hx-boost="true" hx-target="#restableform" hx-swap="afterend" hx-get="/infer_htmx" id="inferform">
-                <td><input name="age" type="number" placeholder="Age" value="9"></td>
+            <form hx-boost="true" hx-target="#restableform" hx-swap="afterend" hx-get="/infer" id="inferform">
+                <td>
+                    <input type="radio" id="2h_radio" name="otime" value="After2h" checked="checked">
+                    <label for="2h_radio"><span>2h</span></label>
+                    <input type="radio" id="5d_radio" name="otime" value="After5d">
+                    <label for="5d_radio"><span>5d</span></label>
+                </td>
                 <td>
                     <input type="radio" id="female_radio" name="sex" value="Female" checked="checked">
                     <label for="female_radio"><span>Female</span></label>
                     <input type="radio" id="male_radio" name="sex" value="Male">
                     <label for="male_radio"><span>Male</span></label>
                 </td>
-                <td><input name="lf" type="number" placeholder="%LF" value="56"></td>
-                <td><input name="hf" type="number" placeholder="%HF" value="27"></td>
-                <td><input type="submit" value="Infer"></td>
+                <td><input name="lf_b" type="number" placeholder="%LF" value="56"></td>
+                <td><input name="hf_b" type="number" placeholder="%HF" value="27"></td>
+                <td colspan="2"><input id="submitbtn" type="submit" value="Infer"></td>
             </form>
         </tr>
     </table>

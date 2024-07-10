@@ -6,16 +6,16 @@ pub enum Sex {
     Male,
 }
 
-// #[derive(Debug, Deserialize)]
-// pub enum AgeGroup {
-//     Child,
-//     Adult,
-// }
+#[derive(Debug, Deserialize)]
+pub enum ObservationTime {
+    After2h,
+    After5d,
+}
 
 #[derive(Debug, Deserialize)]
 pub struct InferenceQuery {
     pub sex: Sex,
-    pub age: usize,
-    pub lf: f32,
-    pub hf: f32,
+    pub otime: ObservationTime,
+    pub lf_b: f32,
+    pub hf_b: f32,
 }

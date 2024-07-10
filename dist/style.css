@@ -14,7 +14,7 @@ body {
     border-collapse: collapse;
 }
 
-#restable td {
+#restable td, #restable th {
     padding: 5px;
     text-align: center;
 }
@@ -31,4 +31,9 @@ input {
 
 #restable tr:nth-child(3) {
     border: 2px solid black;
+}
+
+#submitbtn {
+    width: 100%;
+    height: 100%;
 }
