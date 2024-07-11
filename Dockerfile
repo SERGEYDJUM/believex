@@ -14,7 +14,7 @@ RUN cargo build --release --bin believex-backend
 FROM debian:bookworm-slim AS runtime
 WORKDIR /app
 COPY --from=builder /app/target/release/believex-backend .
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/front ./front
 COPY --from=builder /app/models ./models
 
 EXPOSE 7331
