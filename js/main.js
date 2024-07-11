@@ -16,11 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const data = await response.json();
 
             // Предполагаем, что API возвращает значения в формате { hlf_2h: ..., lf_2h: ..., hf_2h: ..., hlf_5d: ..., lf_5d: ..., hf_5d: ... }
-            document.getElementById("hlf-1").textContent = data.hlf_2h;
+            document.getElementById("vlf-1").textContent = data.hlf_2h;
             document.getElementById("lf-1").textContent = data.lf_2h;
             document.getElementById("hf-1").textContent = data.hf_2h;
 
-            document.getElementById("hlf-2").textContent = data.hlf_5d;
+            document.getElementById("vlf-2").textContent = data.hlf_5d;
             document.getElementById("lf-2").textContent = data.lf_5d;
             document.getElementById("hf-2").textContent = data.hf_5d;
         } catch (error) {
