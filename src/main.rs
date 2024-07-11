@@ -43,7 +43,7 @@ async fn main() -> anyhow::Result<()> {
 
     let state = AppState::new(mm_config)?;
 
-    let static_files_srv = ServeDir::new("dist/").fallback(ServeFile::new("dist/404.html"));
+    let static_files_srv = ServeDir::new("front/").fallback(ServeFile::new("front/404.html"));
 
     let router = Router::new()
         .route("/infer", get(handlers::infer))
