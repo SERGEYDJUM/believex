@@ -6,7 +6,8 @@ html, body{
     height: 100%;
 }
 
-.container{  max-width: 1260px; /* Убедитесь, что это значение совпадает с другими контейнерами */
+.container{  
+    max-width: 1260px;
     padding: 0 15px;
     margin: 0 auto;
 }
@@ -58,22 +59,6 @@ html, body{
     margin-bottom: 20px;
 }
 
-.button{
-    display: inline-block;
-    line-height: 50px;
-    padding: 0 10px;
-    margin-top: 20px;
-    color: #fff;
-    border-radius: 40px;
-    background: rgba(158, 63, 253, 1);
-}
-
-.button:hover{
-    background: rgba(22, 22, 63, 1);
-    transform: scale(1.05);
-}
-
-
 /*==============================================================*/
 
 .main {
@@ -100,33 +85,48 @@ html, body{
     margin: 61px 0px 30px 0;
 }
 
-.prediction_form{
-/*    display: inline-flex;*/
+.form-group select {
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid rgba(22, 22, 63, 1);
+    padding: 25px;
+    font-size: 1rem;
+    outline: none;
+    background: none;
+    text-align: center;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+.prediction_form {
+    display: flex;
     flex-direction: column;
     gap: 20px;
     position: relative;
     width: 100%;
     max-width: 600px;
+    align-items: center;
 }
 
-.form-row {
+/*.form-row {
     display: flex;
     justify-content: space-between;
     width: 100%;
-}
+}*/
 
 .form-group{
-    width: 30%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .form-group label{
     font-size: 14px;
     color: rgba(22, 22, 63, 1);
     display: inline-block;
-    text-align: left;
+    text-align: center;
 }
 
 .form-group input {
@@ -177,6 +177,22 @@ input[type=number] {
     margin: 0px 0px 58px 0;
 }
 
+
+.button{
+    display: inline-block;
+    line-height: 50px;
+    padding: 0 10px;
+    margin-top: 20px;
+    color: #fff;
+    border-radius: 40px;
+    background: rgba(158, 63, 253, 1);
+}
+
+.button:hover{
+    background: rgba(22, 22, 63, 1);
+    transform: scale(1.05);
+}
+
 .section_button{
     text-align: center;
     position: relative;
@@ -197,6 +213,7 @@ input[type=number] {
 .results-section {
     text-align: center;
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .results {
@@ -205,6 +222,7 @@ input[type=number] {
     align-items: center;
     justify-content: space-around;
     margin-top: 10px;
+    padding-bottom: 20px;
 }
 
 .result-item {

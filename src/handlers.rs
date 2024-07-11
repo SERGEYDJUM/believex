@@ -1,7 +1,8 @@
 use axum::{
     extract::{Query, State},
     http::StatusCode,
-    response::IntoResponse, Json,
+    response::IntoResponse,
+    Json,
 };
 use serde::Serialize;
 
@@ -37,5 +38,5 @@ pub async fn infer(
         }
     };
 
-    Ok(Json(Forecast {lf, hf}))
+    Ok(Json(Forecast { lf, hf }))
 }
