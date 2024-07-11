@@ -1,0 +1,18 @@
+[package]
+name = "believex-backend"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+ort = "2.0.0-rc.3"
+axum = "0.7.5"
+axum-extra = "0.9.3"
+tokio = { version = "1.38.0", features = ["full"] }
+tower = { version = "0.4.13", features = ["util"] }
+tower-http = { version = "0.5.2", features = ["fs", "trace"] }
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+anyhow = "1.0.86"
+serde = { version = "1.0.203", features = ["derive"] }
+ndarray = "0.15.6"
+thiserror = "1.0.61"

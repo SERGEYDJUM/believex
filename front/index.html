@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/fonts.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Believix</title>
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="header_top-inner">
+                        <div class="header_logo ">
+                            <img src="images/believix_bold.svg" alt="">
+                        </div>
+            </div>
+            <div class="header_body">
+                <div class="container">
+                    <div class="header_body-inner">
+                        <h1 class="header_title">Прогнозирование течения
+                            послеоперационного периода у ринохирургических больных</h1>
+                    <div class="header_button button" id="get-forecast-btn">
+                        Получить прогноз
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+    <div class="main">
+        <div class="section">
+            <div class="about">
+                <div class="section_title">
+                    <h2>Показатели спектрального анализа до операции
+                    </h2>
+                </div>
+            </div>
+            <div class="prediction_form" id="prediction-form">
+                <div class="form-row">
+                    <div class="form-group" id="age-group">
+                        <label for="age">Возраст *</label>
+                        <input type="number" id="age" name="age" pattern="\d*" required>
+                    </div>
+                    <div class="form-group" id="gender-group">
+                        <label for="gender">Пол (м/ж) *</label>
+                        <input type="text" id="gender" name="gender" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group" id="vlf-group">
+                        <label for="vlf">VLF *</label>
+                        <input type="number" id="vlf" name="vlf" pattern="\d*" required>
+                    </div>
+                    <div class="form-group" id="lf-group">
+                        <label for="lf">LF *</label>
+                        <input type="number" id="lf" name="lf" pattern="\d*" required>
+                    </div>
+                    <div class="form-group" id="hf-group">
+                        <label for="hf">HF *</label>
+                        <input type="number" id="hf" name="hf" pattern="\d*" required>
+                    </div>
+                </div>
+                <div class="section_button button" id="get-forecast-btn">
+                    Получить прогноз
+                </div>
+                </div>
+            </div>
+        </div>
+        <hr class="divider">
+        <div class="section result-section">
+            <div class="container">
+                <div class="section_title">
+                    <h2>Предполагаемые показатели спектрального анализа спустя 2 часа после операции</h2>
+                </div>
+                <div class="results" id="results-1">
+                    <div class="result-item">
+                        <div class="result-title">HLF</div>
+                        <div class="result-value" id="hlf-1">numb</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-title">LF</div>
+                        <div class="result-value" id="lf-1">numb</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-title">HF</div>
+                        <div class="result-value" id="hf-1">numb</div>
+                    </div>
+                </div>
+                <div class="section_title">
+                    <h2>Предполагаемые показатели спектрального анализа спустя 5 дней после операции</h2>
+                </div>
+                <div class="results" id="results-2">
+                    <div class="result-item">
+                        <div class="result-title">HLF</div>
+                        <div class="result-value" id="hlf-2">numb</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-title">LF</div>
+                        <div class="result-value" id="lf-2">numb</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-title">HF</div>
+                        <div class="result-value" id="hf-2">numb</div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="js/main.js"></script>
+</html>
