@@ -1,30 +1,25 @@
+async function forecast() {
+    const gender = (document.getElementById("gender").value.toLowerCase() == "м") ? "Male" : "Female";
+    const lf = document.getElementById("lf").value;
+    const hf = document.getElementById("hf").value;
+
+    const response_2h = await fetch(`/infer?lf_b=${lf}&hf_b=${hf}&sex=${gender}&otime=After2h`);
+    const response_5d = await fetch(`/infer?lf_b=${lf}&hf_b=${hf}&sex=${gender}&otime=After5d`);
+
+    if (!response_2h.ok || !response_5d.ok) {
+        throw new Error("Проверьте введённые данные");
+    }
+
+    const data_2h = await response_2h.json();
+    const data_5d = await response_5d.json();
+
+    document.getElementById("lf-1").textContent = data_2h.lf;
+    document.getElementById("hf-1").textContent = data_2h.hf;
+
+    document.getElementById("lf-2").textContent = data_5d.lf;
+    document.getElementById("hf-2").textContent = data_5d.hf;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-    const forecastButton = document.getElementById("get-forecast-btn");
-
-    forecastButton.addEventListener("click", async () => {
-        const age = document.getElementById("age").value;
-        const gender = document.getElementById("gender").value;
-        const vlf = document.getElementById("vlf").value;
-        const lf = document.getElementById("lf").value;
-        const hf = document.getElementById("hf").value;
-
-        try {
-            const response = await fetch(`http://localhost:7331/infer?lf=${lf}&hf=${hf}&sex=${gender}&age=${age}`);
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            const data = await response.json();
-
-            // Предполагаем, что API возвращает значения в формате { hlf_2h: ..., lf_2h: ..., hf_2h: ..., hlf_5d: ..., lf_5d: ..., hf_5d: ... }
-            document.getElementById("hlf-1").textContent = data.hlf_2h;
-            document.getElementById("lf-1").textContent = data.lf_2h;
-            document.getElementById("hf-1").textContent = data.hf_2h;
-
-            document.getElementById("hlf-2").textContent = data.hlf_5d;
-            document.getElementById("lf-2").textContent = data.lf_5d;
-            document.getElementById("hf-2").textContent = data.hf_5d;
-        } catch (error) {
-            console.error("Fetch error: ", error);
-        }
-    });
+    document.getElementById("get-forecast-btn").onclick = () => forecast().catch((err) => alert(err));
 });

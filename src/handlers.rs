@@ -1,13 +1,20 @@
 use axum::{
     extract::{Query, State},
     http::StatusCode,
-    response::IntoResponse,
+    response::IntoResponse, Json,
 };
+use serde::Serialize;
 
 use crate::{
     appstate::AppState,
     queries::{InferenceQuery, ObservationTime, Sex},
 };
+
+#[derive(Debug, Serialize)]
+struct Forecast {
+    lf: f32,
+    hf: f32,
+}
 
 pub async fn infer(
     Query(query): Query<InferenceQuery>,
@@ -30,22 +37,5 @@ pub async fn infer(
         }
     };
 
-    let new_row = format!(
-        "<tr>
-            <td>{0}</td>
-            <td>{1}</td>
-            <td>{2}</td>
-            <td>{3}</td>
-            <td>{4}</td>
-            <td>{5}</td>
-        </tr>",
-        if is_late { "5 days" } else { "2 hours" },
-        if is_male { "M" } else { "F" },
-        query.lf_b,
-        query.hf_b,
-        lf,
-        hf,
-    );
-
-    Ok(new_row)
+    Ok(Json(Forecast {lf, hf}))
 }
