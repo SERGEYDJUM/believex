@@ -1,5 +1,5 @@
 async function forecast() {
-    const gender = (document.getElementById("gender").value.toLowerCase() == "м") ? "Male" : "Female";
+    const gender = document.getElementById("gender").value;
     const lf = document.getElementById("lf").value;
     const hf = document.getElementById("hf").value;
 
