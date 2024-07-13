@@ -1,3 +1,4 @@
+
 html, body{
     font-size: 16px;
     font-family: azeret-mono, azeret mono, monospace;
@@ -8,7 +9,7 @@ html, body{
 
 .container{  
     max-width: 1260px;
-    padding: 0 15px;
+    padding: 0 15px 30px 15px;
     margin: 0 auto;
 }
 
@@ -109,12 +110,6 @@ html, body{
     align-items: center;
 }
 
-/*.form-row {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-}*/
-
 .form-group{
     width: 100%;
     display: flex;
@@ -154,21 +149,10 @@ input[type=number] {
     border-bottom: 2px solid red;
 }
 
-.form-group input.invalid {
-    border-bottom: 2px solid red;
-}
-
-#age-group {
-    margin: 30px 0px 41px 0;
-}
-
 #gender-group {
     margin: 30px 0px 41px 0;
 }
 
-#vlf-group {
-    margin: 0px 0px 58px 0;
-}
 #lf-group {
     margin: 0px 0px 58px 0;
 }
@@ -220,7 +204,7 @@ input[type=number] {
     font-size: 20px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     margin-top: 10px;
     padding-bottom: 20px;
 }
