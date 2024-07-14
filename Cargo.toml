@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-ort = "2.0.0-rc.3"
+ort = "2.0.0-rc.4"
 axum = "0.7.5"
 axum-extra = "0.9.3"
 tokio = { version = "1.38.0", features = ["full"] }
