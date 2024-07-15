@@ -61,6 +61,10 @@ pub struct AsyncBelievexModelManager {
     pub male_5d: LockedBelievexModel,
     pub female_2h: LockedBelievexModel,
     pub female_5d: LockedBelievexModel,
+    pub child_male_2h: LockedBelievexModel,
+    pub child_male_5d: LockedBelievexModel,
+    pub child_female_2h: LockedBelievexModel,
+    pub child_female_5d: LockedBelievexModel,
 }
 
 #[derive(Debug, Clone, Copy)]
@@ -73,6 +77,14 @@ pub struct MMConfig<P: AsRef<Path>> {
     pub flf5d: P,
     pub fhf2h: P,
     pub fhf5d: P,
+    pub cmlf2h: P,
+    pub cmlf5d: P,
+    pub cmhf2h: P,
+    pub cmhf5d: P,
+    pub cflf2h: P,
+    pub cflf5d: P,
+    pub cfhf2h: P,
+    pub cfhf5d: P,
 }
 
 impl AsyncBelievexModelManager {
@@ -82,6 +94,10 @@ impl AsyncBelievexModelManager {
             male_5d: Mutex::new(BelievexModel::load(config.mlf5d, config.mhf5d)?),
             female_2h: Mutex::new(BelievexModel::load(config.flf2h, config.fhf2h)?),
             female_5d: Mutex::new(BelievexModel::load(config.flf5d, config.fhf5d)?),
+            child_male_2h: Mutex::new(BelievexModel::load(config.cmlf2h, config.cmhf2h)?),
+            child_male_5d: Mutex::new(BelievexModel::load(config.cmlf5d, config.cmhf5d)?),
+            child_female_2h: Mutex::new(BelievexModel::load(config.cflf2h, config.cfhf2h)?),
+            child_female_5d: Mutex::new(BelievexModel::load(config.cflf5d, config.cfhf5d)?),
         })
     }
 
@@ -89,14 +105,19 @@ impl AsyncBelievexModelManager {
         &self,
         lf: f32,
         hf: f32,
+        is_child: bool,
         is_male: bool,
         is_late: bool,
     ) -> Result<(f32, f32), Error> {
-        match (is_male, is_late) {
-            (true, false) => self.male_2h.lock().await.infer(lf, hf),
-            (true, true) => self.male_5d.lock().await.infer(lf, hf),
-            (false, false) => self.female_2h.lock().await.infer(lf, hf),
-            (false, true) => self.female_5d.lock().await.infer(lf, hf),
+        match (is_child, is_male, is_late) {
+            (false, true, false) => self.male_2h.lock().await.infer(lf, hf),
+            (false, true, true) => self.male_5d.lock().await.infer(lf, hf),
+            (false, false, false) => self.female_2h.lock().await.infer(lf, hf),
+            (false, false, true) => self.female_5d.lock().await.infer(lf, hf),
+            (true, true, false) => self.child_male_2h.lock().await.infer(lf, hf),
+            (true, true, true) => self.child_male_5d.lock().await.infer(lf, hf),
+            (true, false, false) => self.child_female_2h.lock().await.infer(lf, hf),
+            (true, false, true) => self.child_female_5d.lock().await.infer(lf, hf),
         }
     }
 }
@@ -116,6 +137,14 @@ mod tests {
             flf5d: "models/knn_female_adults_lf_5d.onnx",
             fhf2h: "models/knn_female_adults_hf_2h.onnx",
             fhf5d: "models/knn_female_adults_hf_5d.onnx",
+            cmlf2h: "models/knn_male_adults_lf_2h.onnx",
+            cmlf5d: "models/knn_male_adults_lf_5d.onnx",
+            cmhf2h: "models/knn_male_adults_hf_5d.onnx",
+            cmhf5d: "models/knn_male_adults_hf_5d.onnx",
+            cflf2h: "models/knn_female_adults_lf_2h.onnx",
+            cflf5d: "models/knn_female_adults_lf_5d.onnx",
+            cfhf2h: "models/knn_female_adults_hf_2h.onnx",
+            cfhf5d: "models/knn_female_adults_hf_5d.onnx",
         };
 
         AsyncBelievexModelManager::load_models(mm_config).unwrap();
