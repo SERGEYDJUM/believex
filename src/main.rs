@@ -39,14 +39,14 @@ async fn main() -> anyhow::Result<()> {
         flf5d: "models/knn_female_adults_lf_5d.onnx",
         fhf2h: "models/knn_female_adults_hf_2h.onnx",
         fhf5d: "models/knn_female_adults_hf_5d.onnx",
-        cmlf2h: "models/knn_male_adults_lf_2h.onnx",
-        cmlf5d: "models/knn_male_adults_lf_5d.onnx",
-        cmhf2h: "models/knn_male_adults_hf_5d.onnx",
-        cmhf5d: "models/knn_male_adults_hf_5d.onnx",
-        cflf2h: "models/knn_female_adults_lf_2h.onnx",
-        cflf5d: "models/knn_female_adults_lf_5d.onnx",
-        cfhf2h: "models/knn_female_adults_hf_2h.onnx",
-        cfhf5d: "models/knn_female_adults_hf_5d.onnx",
+        cmlf2h: "models/knn_male_child_lf_2h.onnx",
+        cmlf5d: "models/knn_male_child_lf_5d.onnx",
+        cmhf2h: "models/knn_male_child_hf_5d.onnx",
+        cmhf5d: "models/knn_male_child_hf_5d.onnx",
+        cflf2h: "models/knn_female_child_lf_2h.onnx",
+        cflf5d: "models/knn_female_child_lf_5d.onnx",
+        cfhf2h: "models/knn_female_child_hf_2h.onnx",
+        cfhf5d: "models/knn_female_child_hf_5d.onnx",
     };
 
     let state = AppState::new(mm_config)?;
