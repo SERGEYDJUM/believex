@@ -8,7 +8,7 @@ use serde::Serialize;
 
 use crate::{
     appstate::AppState,
-    queries::{InferenceQuery, ObservationTime, Sex},
+    queries::{AgeGroup, InferenceQuery, ObservationTime, Sex},
 };
 
 #[derive(Debug, Serialize)]
@@ -23,10 +23,11 @@ pub async fn infer(
 ) -> impl IntoResponse {
     let is_late = matches!(query.otime, ObservationTime::After5d);
     let is_male = matches!(query.sex, Sex::Male);
+    let is_child = matches!(query.age, AgeGroup::Child);
 
     let (lf, hf) = match state
         .model_manager
-        .infer(query.lf_b, query.hf_b, is_male, is_late)
+        .infer(query.lf_b, query.hf_b, is_child, is_male, is_late)
         .await
     {
         Ok(v) => v,

@@ -1,10 +1,11 @@
 async function forecast() {
     const gender = document.getElementById("gender").value;
+    const age = document.getElementById("age").value;
     const lf = document.getElementById("lf").value;
     const hf = document.getElementById("hf").value;
 
-    const response_2h = await fetch(`/infer?lf_b=${lf}&hf_b=${hf}&sex=${gender}&otime=After2h`);
-    const response_5d = await fetch(`/infer?lf_b=${lf}&hf_b=${hf}&sex=${gender}&otime=After5d`);
+    const response_2h = await fetch(`/infer?lf_b=${lf}&hf_b=${hf}&sex=${gender}&age=${age}&otime=After2h`);
+    const response_5d = await fetch(`/infer?lf_b=${lf}&hf_b=${hf}&sex=${gender}&age=${age}&otime=After5d`);
 
     if (!response_2h.ok || !response_5d.ok) {
         throw new Error("Проверьте введённые данные");
